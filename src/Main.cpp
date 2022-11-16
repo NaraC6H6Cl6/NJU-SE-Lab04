@@ -1,8 +1,12 @@
+#include "Test.hpp"
 #include <iostream>
 
 int
 main()
 {
-  std::cout << "Test Output" << std::endl;
+  Sirius::TestProcedure1();
+  Sirius::TestProcedure2();
+  Sirius::TestProcedure3();
+  Sirius::TestProcedure4();
   return 0;
 }
