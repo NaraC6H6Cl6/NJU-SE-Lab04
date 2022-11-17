@@ -36,12 +36,14 @@ public:
 
   virtual std::string GenerateRandomInput() const override;
 
-public:
+private:
   constexpr static int SpecialValues[] = {
       0, 1, 2, -1, -2,
       int(0x7fffffff), int(0x80000000), int(0x80000001),
       int(0x3fffffff), int(0x40000000), int(0x40000001),
       int(0xbfffffff), int(0xc0000000), int(0xc0000001)};
+
+  static std::uniform_int_distribution<size_t> SpecialDistribution;
 
 private:
   int MinLimit, MaxLimit;

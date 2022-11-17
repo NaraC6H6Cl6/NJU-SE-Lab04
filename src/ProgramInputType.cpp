@@ -39,6 +39,11 @@ Mercury::InputIntType::InputIntType(int MinLimit, int MaxLimit) noexcept
 }
 
 
+std::uniform_int_distribution<size_t>
+  Mercury::InputIntType::SpecialDistribution =
+    std::uniform_int_distribution<size_t>(0, 63);
+
+
 std::string
 Mercury::InputIntType::GenerateRandomInput() const
 {
@@ -47,9 +52,17 @@ Mercury::InputIntType::GenerateRandomInput() const
       std::chrono::system_clock::now()
     ) ^ 0x5555'5555'5555'5555
   );
-  std::uniform_int_distribution<> NumberDistribution(MinLimit, MaxLimit);
-  int RandomNumber = NumberDistribution(RandomEngine);
-  return std::to_string(RandomNumber);
+  int SpecialIndex = SpecialDistribution(RandomEngine);
+  if (SpecialIndex < 14
+    && SpecialValues[SpecialIndex] >= MinLimit
+    && SpecialValues[SpecialIndex] <= MaxLimit
+  ) {
+    return std::to_string(SpecialValues[SpecialIndex]);
+  } else {
+    std::uniform_int_distribution<> NumberDistribution(MinLimit, MaxLimit);
+    int RandomNumber = NumberDistribution(RandomEngine);
+    return std::to_string(RandomNumber);
+  }
 }
 
 
