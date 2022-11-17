@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project("SE_LAB_04" CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
 include_directories("include")
 file(GLOB Sources "src/*.cpp" "src/*.cc")
 add_executable(Output.out ${Sources})
