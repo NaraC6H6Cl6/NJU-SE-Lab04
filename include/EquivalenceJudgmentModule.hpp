@@ -18,12 +18,19 @@ namespace Mercury
   class InputType;
 }
 
+namespace Phoenix
+{
+  class InputContents;
+}
+
 
 namespace Hikari
 {
 
 
 std::vector<std::string> GenerateRandomInput(const std::vector<std::shared_ptr<Mercury::InputType>>&);
+
+std::string Execute(const Phoenix::InputContents&);
 
 
 }

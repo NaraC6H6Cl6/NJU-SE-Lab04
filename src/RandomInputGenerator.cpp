@@ -9,7 +9,7 @@
  * 
  */
 
-#include "RandomInputGenerator.hpp"
+#include "EquivalenceJudgmentModule.hpp"
 #include "ProgramInputType.hpp"
 #include <random>
 #include <chrono>
