@@ -20,7 +20,7 @@ namespace Mercury
 
 namespace Phoenix
 {
-  class InputContents;
+  class InputContent;
 }
 
 
@@ -28,9 +28,10 @@ namespace Hikari
 {
 
 
-std::vector<std::string> GenerateRandomInput(const std::vector<std::shared_ptr<Mercury::InputType>>&);
+std::vector<std::string> GenerateRandomInput(
+  const std::vector<std::shared_ptr<Mercury::InputType>>&);
 
-std::string Execute(const Phoenix::InputContents&);
+std::string Execute(const Phoenix::InputContent&);
 
 
 }

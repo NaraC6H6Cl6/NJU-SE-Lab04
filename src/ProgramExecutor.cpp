@@ -14,7 +14,7 @@
 
 
 std::string 
-Hikari::Execute(const Phoenix::InputContents& Contents)
+Hikari::Execute(const Phoenix::InputContent& Content)
 {
 
 }
