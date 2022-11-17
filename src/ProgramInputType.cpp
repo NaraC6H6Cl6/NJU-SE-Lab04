@@ -1,33 +1,53 @@
+/**
+ * @file ProgramInputType.cpp
+ * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
+ * @brief 
+ * @version 0.1
+ * @date 2022-11-17
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "ProgramInputType.hpp"
 #include <chrono>
 #include <algorithm>
 
 
-Mercury::InputIntType::InputIntType()
-  : NumberDistribution(INT32_MIN, INT32_MAX)
+std::string
+Mercury::InputType::GenerateRandomInput() const
+{
+  return "";
+}
+
+
+Mercury::InputIntType::InputIntType() noexcept
+  : MinLimit(INT32_MIN)
+  , MaxLimit(INT32_MAX)
 {}
 
 
-Mercury::InputIntType::InputIntType(int MinLimit, int MaxLimit)
+Mercury::InputIntType::InputIntType(int MinLimit, int MaxLimit) noexcept
 {
   if (MinLimit <= MaxLimit) {
-    this->NumberDistribution =
-      std::uniform_int_distribution<>(MinLimit, MaxLimit);
+    this->MinLimit = MinLimit;
+    this->MaxLimit = MaxLimit;
   } else {
-    this->NumberDistribution =
-      std::uniform_int_distribution<>(INT32_MIN, INT32_MAX);
+    this->MinLimit = INT32_MIN;
+    this->MaxLimit = INT32_MAX;
   }
 }
 
 
 std::string
-Mercury::InputIntType::GenerateRandomInput()
+Mercury::InputIntType::GenerateRandomInput() const
 {
   static std::default_random_engine RandomEngine(
     std::chrono::system_clock::to_time_t(
       std::chrono::system_clock::now()
     ) ^ 0x5555'5555'5555'5555
   );
+  std::uniform_int_distribution<> NumberDistribution(MinLimit, MaxLimit);
   int RandomNumber = NumberDistribution(RandomEngine);
   return std::to_string(RandomNumber);
 }
@@ -39,7 +59,7 @@ std::uniform_int_distribution<char>
 
 
 std::string
-Mercury::InputCharType::GenerateRandomInput()
+Mercury::InputCharType::GenerateRandomInput() const
 {
   static std::default_random_engine RandomEngine(
     std::chrono::system_clock::to_time_t(
@@ -51,28 +71,35 @@ Mercury::InputCharType::GenerateRandomInput()
 }
 
 
-Mercury::InputStringType::InputStringType(std::size_t MinLength,
-                                          std::size_t MaxLength)
+Mercury::InputStringType::InputStringType(
+  std::size_t MinLength,
+  std::size_t MaxLength) noexcept
 {
   if (MinLength <= MaxLength) {
-    this->LengthDistribution =
-      std::uniform_int_distribution<size_t>(
-         std::clamp<size_t>(MinLength, 1, 255),
-         std::clamp<size_t>(MaxLength, 1, 255)
-      );
+    this->MinLength = std::clamp<size_t>(MinLength, 1, 2047);
+    this->MaxLength = std::clamp<size_t>(MaxLength, 1, 2047);
   } else {
-    this->LengthDistribution =
-      std::uniform_int_distribution<size_t>(1, 255);
+    this->MinLength = 1;
+    this->MaxLength = 2047;
   }
 }
 
 
 std::string
-Mercury::InputStringType::GenerateRandomInput()
+Mercury::InputStringType::GenerateRandomInput() const
 {
   static std::default_random_engine RandomEngine(
     std::chrono::system_clock::to_time_t(
       std::chrono::system_clock::now()
     ) ^ 0x6969'6969'6969'6969
   );
+  std::uniform_int_distribution<size_t> LengthDistribution(MinLength, MaxLength);
+  size_t RandomLength = LengthDistribution(RandomEngine);
+  std::string s;
+  s.resize(RandomLength);
+  for (size_t i = 0; i < RandomLength; i++) {
+    char RandomAsciiChar = AsciiDistribution(RandomEngine);
+    s[i] = RandomAsciiChar;
+  }
+  return s;
 }
