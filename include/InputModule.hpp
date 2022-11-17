@@ -49,12 +49,13 @@ private:
 using InputGroups = std::vector<std::shared_ptr<InputGroup>>;
 
 
-using InputContents = std::vector<
-  std::pair<
-    std::shared_ptr<Phoenix::InputGroup>,
-    std::vector<std::shared_ptr<Mercury::InputType>>
-  >
+using InputContent = std::pair<
+  std::shared_ptr<Phoenix::InputGroup>,
+  std::vector<std::shared_ptr<Mercury::InputType>>
 >;
+
+
+using InputContents = std::vector<InputContent>;
 
 
 Phoenix::InputGroups GetInputGroups();
