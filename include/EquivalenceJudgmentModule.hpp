@@ -1,6 +1,6 @@
 /**
  * @file RandomInputGenerator.hpp
- * @author your name (you@domain.com)
+ * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
  * @date 2022-11-17
@@ -10,7 +10,9 @@
  */
 
 #include <memory>
+#include <filesystem>
 #include <vector>
+#include <string_view>
 
 
 namespace Mercury
@@ -20,18 +22,33 @@ namespace Mercury
 
 namespace Phoenix
 {
-  class InputContent;
+  class InputGroup;
+  using InputContent = std::pair<
+    std::shared_ptr<Phoenix::InputGroup>,
+    std::vector<std::shared_ptr<Mercury::InputType>>
+  >;
 }
 
 
 namespace Hikari
 {
 
+using ExecutionResult = std::pair<int, std::vector<std::pair<int, std::string>>>;
+
+
+bool Compare(const std::vector<std::pair<int, std::string>>&,
+             const std::vector<std::pair<int, std::string>>&);
 
 std::vector<std::string> GenerateRandomInput(
   const std::vector<std::shared_ptr<Mercury::InputType>>&);
 
-std::string Execute(const Phoenix::InputContent&);
+ExecutionResult Execute(
+  const std::filesystem::path& Path, const std::vector<std::string>& Inputs);
+
+std::vector<std::pair<std::string_view, std::string_view>>
+  EquivalenceJudgement(
+    const Phoenix::InputContent& Content
+  );
 
 
 }

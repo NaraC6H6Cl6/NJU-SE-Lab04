@@ -1,6 +1,6 @@
 /**
  * @file RandomInputGenerator.cpp
- * @author your name (you@domain.com)
+ * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
  * @date 2022-11-17
@@ -20,7 +20,8 @@ Hikari::GenerateRandomInput(
   const std::vector<std::shared_ptr<Mercury::InputType>>& Inputs)
 {
   std::vector<std::string> o;
-  for (int i = 0; i < 100; i++) {
+  o.reserve(48);
+  for (int i = 0; i < 48; i++) {
     std::string& s = o.emplace_back(std::string());
     for (auto Input : Inputs) {
       s += Input->GenerateRandomInput();
