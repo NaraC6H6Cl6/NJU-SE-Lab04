@@ -24,7 +24,7 @@ protected:
   explicit InputType() = default;
 
 public:
-  virtual std::string GenerateRandomInput() const;
+  virtual std::string GenerateRandomInput() const = 0;
 };
 
 
