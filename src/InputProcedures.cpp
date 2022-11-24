@@ -10,7 +10,7 @@
  */
 
 #include "InputModule.hpp"
-#include "ProgramInputType.hpp"
+#include "InputType.hpp"
 #include <filesystem>
 #include <fstream>
 #include <regex>
