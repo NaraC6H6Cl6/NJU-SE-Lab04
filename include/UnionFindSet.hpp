@@ -1,9 +1,9 @@
 /**
  * @file UnionFindSet.hpp
- * @author your name (you@domain.com)
+ * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
- * @date 2022-11-18
+ * @date 2022-11-17
  * 
  * @copyright Copyright (c) 2022
  * 

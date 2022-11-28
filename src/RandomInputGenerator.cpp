@@ -9,7 +9,7 @@
  * 
  */
 
-#include "EquivalenceJudgmentModule.hpp"
+#include "EquivalenceJudgment.hpp"
 #include "InputType.hpp"
 #include <random>
 #include <chrono>
