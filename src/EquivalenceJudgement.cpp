@@ -10,7 +10,7 @@
  */
 
 #include "EquivalenceJudgmentModule.hpp"
-#include "InputModule.hpp"
+#include "InputProcedures.hpp"
 #include <iostream>
 
 
@@ -26,6 +26,8 @@ Hikari::Compare(const std::vector<std::pair<int, std::string>>& lhs,
     if (it1->first != 0 || it2->first != 0 || it1->second != it2->second) {
       return false;
     }
+    it1++;
+    it2++;
   }
   return true;
 }

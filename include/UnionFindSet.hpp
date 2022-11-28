@@ -16,28 +16,34 @@
 namespace Cascade {
 
 
-template <typename T>
+template <typename T, typename PointerT = T*>
 class UnionFindSet
 {
+  static_assert(std::is_pointer_v());
 public:
   UnionFindSet() = default;
 
-  UnionFindSet(std::initializer_list<T*> l) {
-
+  UnionFindSet(std::initializer_list<PointerT> l) {
+    for (auto p : l) {
+      ParentRef.try_emplace(p, p);
+    }
   }
 
-  UnionFindSet(std::iterator<T*> begin, std::iterator<T*> end) {
-
+  UnionFindSet(std::iterator<PointerT> begin, std::iterator<Ptr> end) {
+    std::iterator it = begin;
+    while (it != ptr.end) {
+      ParentRef.try_emplace(*it, *it);
+    }
   }
 
   void
-  Insert(const T*)
+  Insert(const PointerT p)
   {
-    
+    ParentRef.try_emplace(p, p);
   }
 
   bool
-  Merge(const T* lhs, const T* rhs)
+  Merge(const PointerT lhs, const PointerT rhs)
   {
     if (Match.find(lhs) == Match.end() || Match.find(rhs) == Match.end()) {
       return false;
@@ -48,13 +54,8 @@ public:
     return true;
   }
 
-
-
-
-
 private:
-  std::unordered_map<T*, size_t> Match;
-  std::vector<std::pair<T*, size_t>> Data;
+  std::unordered_map<PointerT, PointerT> ParentRef;
 };
 
 
