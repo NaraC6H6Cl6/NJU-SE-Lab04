@@ -10,24 +10,25 @@
  */
 
 #include "EquivalenceJudgmentModule.hpp"
-#include "ProgramInputType.hpp"
+#include "InputType.hpp"
 #include <random>
 #include <chrono>
 
 
 std::vector<std::string>
 Hikari::GenerateRandomInput(
-  const std::vector<std::shared_ptr<Mercury::InputType>>& Inputs)
+  const std::vector<std::shared_ptr<Mercury::InputType>>& Inputs
+)
 {
-  std::vector<std::string> o;
-  o.reserve(48);
-  for (int i = 0; i < 48; i++) {
-    std::string& s = o.emplace_back(std::string());
+  std::vector<std::string> Ret;
+  Ret.reserve(32);
+  for (int i = 0; i < 32; i++) {
+    std::string& s = Ret.emplace_back(std::string());
     for (auto Input : Inputs) {
       s += Input->GenerateRandomInput();
       s += ' ';
     }
   }
-  return o;
+  return Ret;
 }
 

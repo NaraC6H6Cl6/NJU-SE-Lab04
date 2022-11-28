@@ -9,6 +9,11 @@
  * 
  */
 
+#ifndef _EquivalenceJudgment_H
+#define _EquivalenceJudgment_H
+
+
+#include "UnionFindSet.hpp"
 #include <memory>
 #include <filesystem>
 #include <vector>
@@ -20,13 +25,9 @@ namespace Mercury
   class InputType;
 }
 
-namespace Phoenix
+namespace Plum
 {
   class InputGroup;
-  using InputContent = std::pair<
-    std::shared_ptr<Phoenix::InputGroup>,
-    std::vector<std::shared_ptr<Mercury::InputType>>
-  >;
 }
 
 
@@ -39,16 +40,19 @@ using ExecutionResult = std::pair<int, std::vector<std::pair<int, std::string>>>
 bool Compare(const std::vector<std::pair<int, std::string>>&,
              const std::vector<std::pair<int, std::string>>&);
 
-std::vector<std::string> GenerateRandomInput(
-  const std::vector<std::shared_ptr<Mercury::InputType>>&);
+std::vector<std::string>
+GenerateRandomInput(const std::vector<std::shared_ptr<Mercury::InputType>>&);
 
-ExecutionResult Execute(
-  const std::filesystem::path& Path, const std::vector<std::string>& Inputs);
+ExecutionResult 
+Execute(
+  const std::filesystem::path& Path, const std::vector<std::string>& Inputs
+);
 
-std::vector<std::pair<std::string_view, std::string_view>>
-  EquivalenceJudgement(
-    const Phoenix::InputContent& Content
-  );
+Cascade::UnionFindSet<std::filesystem::path>
+EquivalenceJudgement(const Plum::InputGroup& Group);
 
 
 }
+
+
+#endif

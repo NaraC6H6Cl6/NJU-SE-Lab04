@@ -1,6 +1,6 @@
 #include "Test.hpp"
-#include "InputModule.hpp"
-#include "EquivalenceJudgmentModule.hpp"
+#include "InputProcedures.hpp"
+#include "EquivalenceJudgment.hpp"
 #include <iostream>
 
 
@@ -21,13 +21,6 @@ Sirius::TestProcedure1()
 void
 Sirius::TestProcedure2()
 {
-  auto Contents = Phoenix::InputProcedure();
-  for (auto& Content : Contents) {
-    auto Result = Hikari::EquivalenceJudgement(Content);
-    for (auto& [Path1, Path2] : Result) {
-      std::cout << Path1 << ' ' << Path2 << std::endl;
-    }
-  }
   std::cout << "Test Procedure 2 Completed" << std::endl;
 }
 

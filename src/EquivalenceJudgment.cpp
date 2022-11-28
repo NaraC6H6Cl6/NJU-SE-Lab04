@@ -1,5 +1,5 @@
 /**
- * @file ProgramExecutor.cpp
+ * @file EquivalenceJudgement.cpp
  * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
@@ -9,12 +9,32 @@
  * 
  */
 
-#include "EquivalenceJudgmentModule.hpp"
-#include "InputModule.hpp"
+#include "EquivalenceJudgment.hpp"
+#include "InputGroups.hpp"
 #include <cstdio>
+#include <iostream>
 #include <memory>
 #include <fstream>
 #include <filesystem>
+
+
+bool
+Hikari::Compare(const std::vector<std::pair<int, std::string>>& lhs,
+                const std::vector<std::pair<int, std::string>>& rhs)
+{
+  if (lhs.size() != rhs.size()) {
+    return false;
+  }
+  auto it1 = lhs.begin(), it2 = rhs.begin();
+  while (it1 != lhs.end()) {
+    if (it1->first != 0 || it2->first != 0 || it1->second != it2->second) {
+      return false;
+    }
+    it1++;
+    it2++;
+  }
+  return true;
+}
 
 
 Hikari::ExecutionResult
@@ -72,5 +92,43 @@ Hikari::Execute(const std::filesystem::path& Path, const std::vector<std::string
   }
   return std::make_pair(0, std::move(Ret));
 }
+
+
+Cascade::UnionFindSet<std::filesystem::path>
+Hikari::EquivalenceJudgement(const Plum::InputGroup& Group)
+{
+  const auto& SourceFilePaths = Group.GetSourceFilePaths();
+  auto InputStrings = Hikari::GenerateRandomInput(Group.GetInputParameters());
+  std::vector<std::pair<std::filesystem::path, Hikari::ExecutionResult>> OutputResults;  
+  std::vector<std::string_view> FilePathStrings;
+  for (auto& Path : SourceFilePaths) {
+    std::cout << Path.string() << std::endl;
+    OutputResults.emplace_back(Path, Hikari::Execute(Path, InputStrings));
+    FilePathStrings.emplace_back(Path.string());
+  }
+  Cascade::UnionFindSet<std::filesystem::path> Ret;
+  int n = OutputResults.size();
+  for (int i = 0; i < n - 1; i++) {
+    Ret.Insert(&SourceFilePaths[i]);
+    for (int j = i + 1; j < n; j++) {
+      Ret.Insert(&SourceFilePaths[j]);
+      auto& Result1 = OutputResults[i].second;
+      auto& Result2 = OutputResults[j].second;
+      if (Result1.first != 0 || Result2.first != 0) {
+        // Failed to compile
+        continue;
+      }
+      bool bIsSameResults = Hikari::Compare(Result1.second, Result2.second);
+      if (bIsSameResults) {
+        Ret.Merge(&SourceFilePaths[i], &SourceFilePaths[j]);
+        break;
+      }
+    }
+  }
+  return Ret;
+}
+
+
+
 
 
