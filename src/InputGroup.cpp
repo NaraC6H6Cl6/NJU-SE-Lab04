@@ -1,5 +1,5 @@
 /**
- * @file InputModule.hpp
+ * @file InputGroup.hpp
  * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
