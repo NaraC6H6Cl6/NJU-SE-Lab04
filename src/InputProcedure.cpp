@@ -1,5 +1,5 @@
 /**
- * @file InputModule.cpp
+ * @file InputProcedure.cpp
  * @author Lingzhou Ai (https://github.com/NaraC6H6Cl6/)
  * @brief 
  * @version 0.1
