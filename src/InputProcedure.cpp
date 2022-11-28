@@ -9,8 +9,8 @@
  * 
  */
 
-#include "InputProcedures.hpp"
-#include "InputGroups.hpp"
+#include "InputProcedure.hpp"
+#include "InputGroup.hpp"
 #include "InputType.hpp"
 #include <filesystem>
 #include <regex>

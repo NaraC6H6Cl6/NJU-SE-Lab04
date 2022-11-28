@@ -9,8 +9,8 @@
  * 
  */
 
-#include "InputGroups.hpp"
-#include "InputProcedures.hpp"
+#include "InputGroup.hpp"
+#include "InputProcedure.hpp"
 #include <memory>
 #include <fstream>
 

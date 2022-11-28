@@ -1,6 +1,4 @@
 #include "Test.hpp"
-#include "InputProcedures.hpp"
-#include "EquivalenceJudgment.hpp"
 #include <iostream>
 
 

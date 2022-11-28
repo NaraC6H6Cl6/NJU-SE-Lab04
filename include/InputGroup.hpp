@@ -9,6 +9,10 @@
  * 
  */
 
+#ifndef _InputGroup_H
+#define _InputGroup_H
+
+
 #include <memory>
 #include <filesystem>
 #include <vector>
@@ -50,3 +54,6 @@ private:
 
 
 }
+
+
+#endif

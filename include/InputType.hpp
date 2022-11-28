@@ -9,6 +9,10 @@
  * 
  */
 
+#ifndef _InputType_H
+#define _InputType_H
+
+
 #include <string>
 #include <vector>
 #include <random>
@@ -75,3 +79,6 @@ private:
 
 
 }
+
+
+#endif
