@@ -9,16 +9,9 @@
  * 
  */
 
-#include "ProgramInputType.hpp"
+#include "InputType.hpp"
 #include <chrono>
 #include <algorithm>
-
-
-std::string
-Mercury::InputType::GenerateRandomInput() const
-{
-  return "";
-}
 
 
 Mercury::InputIntType::InputIntType() noexcept
@@ -40,8 +33,8 @@ Mercury::InputIntType::InputIntType(int MinLimit, int MaxLimit) noexcept
 
 
 std::uniform_int_distribution<size_t>
-  Mercury::InputIntType::SpecialDistribution =
-    std::uniform_int_distribution<size_t>(0, 63);
+Mercury::InputIntType::SpecialDistribution =
+  std::uniform_int_distribution<size_t>(0, 63);
 
 
 std::string
@@ -67,8 +60,8 @@ Mercury::InputIntType::GenerateRandomInput() const
 
 
 std::uniform_int_distribution<char>
-  Mercury::InputCharType::AsciiDistribution =
-    std::uniform_int_distribution<char>(char(0x20), char(0x7f));
+Mercury::InputCharType::AsciiDistribution =
+  std::uniform_int_distribution<char>(char(0x20), char(0x7f));
 
 
 std::string
@@ -80,20 +73,19 @@ Mercury::InputCharType::GenerateRandomInput() const
     ) ^ 0xaaaa'aaaa'aaaa'aaaa
   );
   char RandomAsciiChar = AsciiDistribution(RandomEngine);
-  return std::string(&RandomAsciiChar, 1);
+  return std::string(1, RandomAsciiChar);
 }
 
 
 Mercury::InputStringType::InputStringType(
-  std::size_t MinLength,
-  std::size_t MaxLength) noexcept
+  std::size_t MinLength, std::size_t MaxLength) noexcept
 {
   if (MinLength <= MaxLength) {
-    this->MinLength = std::clamp<size_t>(MinLength, 1, 2047);
-    this->MaxLength = std::clamp<size_t>(MaxLength, 1, 2047);
+    this->MinLength = std::clamp<size_t>(MinLength, 1, 4095);
+    this->MaxLength = std::clamp<size_t>(MaxLength, 1, 4095);
   } else {
     this->MinLength = 1;
-    this->MaxLength = 2047;
+    this->MaxLength = 4095;
   }
 }
 
@@ -106,7 +98,9 @@ Mercury::InputStringType::GenerateRandomInput() const
       std::chrono::system_clock::now()
     ) ^ 0x6969'6969'6969'6969
   );
-  std::uniform_int_distribution<size_t> LengthDistribution(MinLength, MaxLength);
+  std::uniform_int_distribution<size_t> LengthDistribution(
+    MinLength, MaxLength
+  );
   size_t RandomLength = LengthDistribution(RandomEngine);
   std::string s;
   s.resize(RandomLength);
