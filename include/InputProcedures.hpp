@@ -9,6 +9,10 @@
  * 
  */
 
+#ifndef _InputProcedure_H
+#define _InputProcedure_H
+
+
 #include <memory>
 #include <filesystem>
 #include <vector>
@@ -35,3 +39,5 @@ std::vector<std::shared_ptr<Plum::InputGroup>> GetInputGroups();
 
 }
 
+
+#endif

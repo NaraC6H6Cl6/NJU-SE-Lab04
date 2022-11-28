@@ -1,5 +1,4 @@
 #include "Test.hpp"
-#include "InputModule.hpp"
 #include <iostream>
 
 
@@ -13,15 +12,6 @@
 void
 Sirius::TestProcedure1()
 {
-  auto Contents = Phoenix::InputProcedure();
-  for (auto& Content : Contents) {
-    auto& Group = Content.first;
-    std::cout << Group->GetStdinFormatFile();
-    for (auto& SourceFilePath : Group->GetSourceProgramFiles()) {
-      std::cout << ' ' << SourceFilePath;
-    }
-    std::cout << std::endl;
-  }
   std::cout << "Test Procedure 1 Completed" << std::endl;
 }
 
