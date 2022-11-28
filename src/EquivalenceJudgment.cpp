@@ -10,7 +10,7 @@
  */
 
 #include "EquivalenceJudgment.hpp"
-#include "InputGroups.hpp"
+#include "InputGroup.hpp"
 #include <cstdio>
 #include <iostream>
 #include <memory>
