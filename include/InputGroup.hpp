@@ -48,8 +48,9 @@ private:
     CompilableFileExtensions;
 
 private:
-  std::vector<std::shared_ptr<Mercury::InputType>> InputParameters;
+  std::filesystem::path FolderPath;
   std::vector<std::filesystem::path> SourceFilePaths;
+  std::vector<std::shared_ptr<Mercury::InputType>> InputParameters;
 };
 
 
