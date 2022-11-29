@@ -62,10 +62,10 @@ Plum::InputGroup::MakeInputGroup(const std::filesystem::path& FolderPath)
 }
 
 
-const std::vector<std::shared_ptr<Mercury::InputType>>&
-Plum::InputGroup::GetInputParameters() const
+const std::filesystem::path&
+Plum::InputGroup::GetFolderPath() const
 {
-  return this->InputParameters;
+  return this->FolderPath;
 }
 
 
@@ -73,6 +73,13 @@ const std::vector<std::filesystem::path>&
 Plum::InputGroup::GetSourceFilePaths() const
 {
   return this->SourceFilePaths;
+}
+
+
+const std::vector<std::shared_ptr<Mercury::InputType>>&
+Plum::InputGroup::GetInputParameters() const
+{
+  return this->InputParameters;
 }
 
 
