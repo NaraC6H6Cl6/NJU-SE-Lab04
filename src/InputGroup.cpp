@@ -9,8 +9,8 @@
  * 
  */
 
-#include "InputGroups.hpp"
-#include "InputProcedures.hpp"
+#include "InputGroup.hpp"
+#include "InputProcedure.hpp"
 #include <memory>
 #include <fstream>
 
@@ -52,8 +52,9 @@ Plum::InputGroup::MakeInputGroup(const std::filesystem::path& FolderPath)
     }
     FormatFileStream.close();
     Plum::InputGroup Ret;
-    Ret.InputParameters = std::move(TempInputParameters);
+    Ret.FolderPath = std::move(FolderPath);
     Ret.SourceFilePaths = std::move(TempSourceFilePaths);
+    Ret.InputParameters = std::move(TempInputParameters);
     return std::make_shared<Plum::InputGroup>(std::move(Ret));
   } else {
     return nullptr;
