@@ -38,9 +38,10 @@ public:
   InputGroup& operator=(const InputGroup&) = delete;
   InputGroup(InputGroup&&) = default;
 
+  const std::filesystem::path& GetFolderPath() const;
+  const std::vector<std::filesystem::path>& GetSourceFilePaths() const;
   const std::vector<std::shared_ptr<Mercury::InputType>>&
     GetInputParameters() const;
-  const std::vector<std::filesystem::path>& GetSourceFilePaths() const;
 
 private:
   InputGroup() = default;
