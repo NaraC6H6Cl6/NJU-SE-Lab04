@@ -22,12 +22,12 @@ namespace Cascade {
 
 
 template <typename T,
-          typename HashT = std::hash<T>,
-          typename EqualT = std::equal_to<T>>
+          typename HashT = std::hash<const T*>,
+          typename EqualT = std::equal_to<const T*>>
 class UnionFindSet
 {
 public:
-  UnionFindSet() {}
+  UnionFindSet() = default;
 
   UnionFindSet(std::initializer_list<T*> l) {
     for (auto p : l) {
@@ -45,7 +45,7 @@ public:
     );
     InputIt it = begin;
     while (it < end) {
-      ParentRef.try_emplace(*it, *it);
+      ParentRef.try_emplace(*it, *it, 0);
       it++;
     }
   }
@@ -53,7 +53,7 @@ public:
   void
   Insert(const T* p)
   {
-    ParentRef.try_emplace(p, p);
+    ParentRef.try_emplace(p, p, 0);
   }
 
   void
@@ -69,7 +69,7 @@ public:
         int& r1 = GetRank(p1);
         int& r2 = GetRank(p2);
         if (r1 <= r2) {
-          GetParent(p1)= p2;
+          GetParent(p1) = p2;
           if (r1 == r2) {
             r2 += 1;
           }
@@ -104,15 +104,27 @@ public:
   }
 
 private:
-  std::unordered_map<T*, std::pair<const T*, int>, HashT, EqualT> ParentRef;
+  std::unordered_map<const T*, std::pair<const T*, int>, HashT, EqualT> ParentRef;
 
   const T*&
+  GetParent(const T* p)
+  {
+    return ParentRef.at(p).first;
+  }
+
+  const T*
   GetParent(const T* p) const
   {
     return ParentRef.at(p).first;
   }
 
   int&
+  GetRank(const T* p)
+  {
+    return ParentRef.at(p).second;
+  }
+
+  int
   GetRank(const T* p) const
   {
     return ParentRef.at(p).second;

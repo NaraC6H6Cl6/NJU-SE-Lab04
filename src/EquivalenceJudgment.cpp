@@ -22,7 +22,7 @@ bool
 Hikari::Compare(const std::vector<std::pair<int, std::string>>& lhs,
                 const std::vector<std::pair<int, std::string>>& rhs)
 {
-  if (lhs.size() != rhs.size()) {
+  if (lhs.size() != rhs.size() || lhs.size() == 0) {
     return false;
   }
   auto it1 = lhs.begin(), it2 = rhs.begin();
@@ -42,7 +42,6 @@ Hikari::Execute(const std::filesystem::path& Path, const std::vector<std::string
 {
   auto ParentPath = Path.parent_path();
   std::string CompilerCommand = std::string("g++ ") + Path.string() + " -std=c++17 -O2 -o " + ParentPath.string() + "/a.out 2> log.txt";
-  std::array<char, 128> Buffer;
   std::string Result;
   auto Pipe1 = popen(CompilerCommand.c_str(), "r");
   if (!Pipe1) {

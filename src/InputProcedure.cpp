@@ -35,14 +35,10 @@ Phoenix::MakeInputByToken(std::string Token)
     std::regex_search(Token, SubMatch2, SubPatternInt2);
     int MinLimit = std::stoi(std::string(SubMatch1[0]));
     int MaxLimit = std::stoi(std::string(SubMatch2[0]));
-    return std::make_shared<Mercury::InputType>(
-      Mercury::InputIntType(MinLimit, MaxLimit)
-    );
+    return std::make_shared<Mercury::InputIntType>(MinLimit, MaxLimit);
 
   } else if (std::regex_match(Token, PatternChar)) {
-    return std::make_shared<Mercury::InputType>(
-      Mercury::InputCharType()
-    );
+    return std::make_shared<Mercury::InputCharType>();
 
   } else if (std::regex_match(Token, PatternString)) {
     std::smatch SubMatch1, SubMatch2;
@@ -50,9 +46,7 @@ Phoenix::MakeInputByToken(std::string Token)
     std::regex_search(Token, SubMatch2, SubPatternString2);
     std::size_t MinLength = std::stoul(std::string(SubMatch1[0]));
     std::size_t MaxLength = std::stoul(std::string(SubMatch2[0]));
-    return std::make_shared<Mercury::InputType>(
-      Mercury::InputStringType(MinLength, MaxLength)
-    );
+    return std::make_shared<Mercury::InputStringType>(MinLength, MaxLength);
 
   } else {
     return nullptr;
@@ -67,7 +61,7 @@ Phoenix::GetInputGroups()
 {
   std::vector<std::shared_ptr<Plum::InputGroup>> Groups;
   // Get the path of the application.
-  std::filesystem::path CurrentPath = std::filesystem::current_path();
+  std::filesystem::path CurrentPath = "./";
   // Every child folder may be an input group.
   for (auto& ChildDirectory : std::filesystem::directory_iterator(CurrentPath)) {
     auto& ChildPath = ChildDirectory.path();
